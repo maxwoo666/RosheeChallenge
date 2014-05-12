@@ -1,0 +1,9 @@
+.highlight {
+    background-color: lightgrey;
+}
+th {
+	text-align: left;
+}
+td, th {
+	padding-right: 50px;
+}

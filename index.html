@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" ng-app="rosheeApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Roshee Deal App</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="data.jsonp"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="angular.js"></script>
+    <script src="controllers.js"></script>
+</head>
+
+<body ng-controller="DealListCtrl">
+
+    Search:
+    <input ng-model="query">Sort by:
+    <select ng-model="orderProp">
+        <option value="title">Alphabetical</option>
+        <option value="last_updated">Newest</option>
+    </select>
+
+    <table class="deals">
+        <tr class="headers">
+            <th class="highlight" onclick="highlightThis(this)" ng-click="orderProp='title';">Name</th>
+            <th onclick="highlightThis(this)" ng-click="orderProp='type'">Type</th>
+            <th onclick="highlightThis(this)" ng-click="orderProp='description';">Description</th>
+            <th onclick="highlightThis(this)">Status</th>
+            <th onclick="highlightThis(this)" ng-click="orderProp='last_updated';">Created</th>
+        </tr>
+        <tr ng-repeat="deal in deals | filter:query | orderBy:orderProp">
+            <td>{{deal.title}}</td>
+            <td>{{deal.typeString}}</td>
+            <td>{{deal.description}}</td>
+            <td>Active</td>
+            <td>{{deal.lastUpdatedString}}</td>
+            <td ng-click="remove(deal)">Remove</td>
+        </tr>
+    </table>
+
+    <script>
+    function highlightThis(elem) {
+        $(".headers").children().removeClass("highlight");
+        $(elem).addClass("highlight");
+    }
+    </script>
+</body>
+
+</html>

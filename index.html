@@ -4,21 +4,35 @@
 <head>
     <meta charset="utf-8">
     <title>Roshee Deal App</title>
+    <link rel="stylesheet" href="modal.css">
     <link rel="stylesheet" href="index.css">
     <script src="data.jsonp"></script>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="angular.js"></script>
+    <script src="modal.js"></script>
     <script src="controllers.js"></script>
 </head>
 
 <body ng-controller="DealListCtrl">
-
+    <p>Your Deals</p>
+    
+    <button ng-click='createType = 0; toggleModal()'>Start Deal</button>
+    <button ng-click='createType = 1; toggleModal()'>Start Request</button>
     Search:
     <input ng-model="query">Sort by:
     <select ng-model="orderProp">
         <option value="title">Alphabetical</option>
         <option value="last_updated">Newest</option>
     </select>
+
+    <modal-dialog id="myModal" show='modalShown' width='400px' height='60%'>
+        Name:
+        <input id="nameInput" type="text"></input>
+        <br>Description:
+        <input id="descriptionInput" type="text"></input>
+        <br>
+        <button ng-click='add(); toggleModal()'>Create</button>
+    </modal-dialog>
 
     <table class="deals">
         <tr class="headers">

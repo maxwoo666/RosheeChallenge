@@ -7,7 +7,7 @@
 rosheeApp.controller('DealListCtrl', function($scope) {
     $scope.deals = data; //"data" is from data.jsonp
     $scope.currID = 0; //increments every time a new deal/request is made
-    
+
     $scope.deals.forEach(function(deal) {
         deal.lastUpdatedString = (new Date(deal.last_updated)).toDateString();
         deal.typeString = (deal.type) ? "Request" : "Deal";
@@ -39,9 +39,31 @@ rosheeApp.controller('DealListCtrl', function($scope) {
         $scope.deals.push(deal);
     };
 
+
+    $('tr').mouseover(function() {
+        console.log('hey');
+        $(this).find('.removeBtn').css('display', 'none');
+        $(this).find('.removeBtn').css('display', 'block');
+    });
+
     //for modal dialogue
     $scope.modalShown = false;
     $scope.toggleModal = function() {
         $scope.modalShown = !$scope.modalShown;
     };
+});
+
+//source: http://www.grobmeier.de/angular-js-the-show-on-mouseenter-hide-on-mouseleave-directive-31082012.html#.U3Bq-fldXKE
+rosheeApp.directive('showonhoverparent',
+   function() {
+      return {
+         link : function(scope, element, attrs) {
+            element.parent().parent().bind('mouseenter', function() {
+                element.show();
+            });
+            element.parent().parent().bind('mouseleave', function() {
+                 element.hide();
+            });
+       }
+   };
 });

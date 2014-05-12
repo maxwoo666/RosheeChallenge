@@ -14,50 +14,51 @@
 </head>
 
 <body ng-controller="DealListCtrl">
-    <p>Your Deals</p>
-    
+    <p class="title">Your Deals</p>
+
     <button ng-click='createType = 0; toggleModal()'>Start Deal</button>
     <button ng-click='createType = 1; toggleModal()'>Start Request</button>
     Search:
     <input ng-model="query">Sort by:
     <select ng-model="orderProp">
-        <option value="title">Alphabetical</option>
-        <option value="last_updated">Newest</option>
+        <option value="title">Name</option>
+        <option value="description">Description</option>
+        <option value="last_updated">Created</option>
+        <option value="type">Type</option>
     </select>
 
-    <modal-dialog id="myModal" show='modalShown' width='400px' height='60%'>
+    <modal-dialog id="myModal" show='modalShown' width='400px' height='200px'>
+        <p class="modalTitle">Start {{(createType)? "Request" : "Deal"}}</p>
         Name:
         <input id="nameInput" type="text"></input>
         <br>Description:
         <input id="descriptionInput" type="text"></input>
         <br>
-        <button ng-click='add(); toggleModal()'>Create</button>
+        <button class="createBtn" ng-click='add(); toggleModal()'>Create</button>
     </modal-dialog>
 
     <table class="deals">
-        <tr class="headers">
-            <th class="highlight" onclick="highlightThis(this)" ng-click="orderProp='title';">Name</th>
-            <th onclick="highlightThis(this)" ng-click="orderProp='type'">Type</th>
-            <th onclick="highlightThis(this)" ng-click="orderProp='description';">Description</th>
-            <th onclick="highlightThis(this)">Status</th>
-            <th onclick="highlightThis(this)" ng-click="orderProp='last_updated';">Created</th>
+        <tr class="dealheaders">
+            <th id="first" class="highlightSelect highlight" ng-click="orderProp='title';">Name</th>
+            <th class="highlightSelect" ng-click="orderProp='type'">Type</th>
+            <th class="highlightSelect" ng-click="orderProp='description';">Description</th>
+            <th>Status</th>
+            <th class="highlightSelect" ng-click="orderProp='last_updated';">Created</th>
+            <th> </th>
         </tr>
-        <tr ng-repeat="deal in deals | filter:query | orderBy:orderProp">
-            <td>{{deal.title}}</td>
+        <tr class="dealrows" ng-repeat="deal in deals | filter:query | orderBy:orderProp">
+            <td class="dealName">{{deal.title}}</td>
             <td>{{deal.typeString}}</td>
             <td>{{deal.description}}</td>
             <td>Active</td>
             <td>{{deal.lastUpdatedString}}</td>
-            <td ng-click="remove(deal)">Remove</td>
+            <td>
+                <button class="removeBtn" ng-click="remove(deal)" showonhoverparent>Remove</button>
+            </td>
         </tr>
     </table>
 
-    <script>
-    function highlightThis(elem) {
-        $(".headers").children().removeClass("highlight");
-        $(elem).addClass("highlight");
-    }
-    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>

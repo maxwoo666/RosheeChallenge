@@ -2,8 +2,7 @@
 
 /* Controllers */
 
-//var rosheeApp = angular.module('rosheeApp', []); //instantiated in modal.js
-
+//rosheeApp instantiated in modal.js
 rosheeApp.controller('DealListCtrl', function($scope) {
     $scope.deals = data; //"data" is from data.jsonp
     $scope.currID = 0; //increments every time a new deal/request is made
@@ -11,7 +10,7 @@ rosheeApp.controller('DealListCtrl', function($scope) {
     $scope.deals.forEach(function(deal) {
         deal.lastUpdatedString = (new Date(deal.last_updated)).toDateString();
         deal.typeString = (deal.type) ? "Request" : "Deal";
-        $scope.currID = Math.max($scope.currID,deal.id);
+        $scope.currID = Math.max($scope.currID,deal.id); //currID starts at the highest ID
     });
 
     //remove a deal/request
@@ -38,13 +37,6 @@ rosheeApp.controller('DealListCtrl', function($scope) {
         $('#descriptionInput').val("");
         $scope.deals.push(deal);
     };
-
-
-    $('tr').mouseover(function() {
-        console.log('hey');
-        $(this).find('.removeBtn').css('display', 'none');
-        $(this).find('.removeBtn').css('display', 'block');
-    });
 
     //for modal dialogue
     $scope.modalShown = false;
